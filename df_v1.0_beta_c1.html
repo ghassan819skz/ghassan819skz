@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>محاكي HTML</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #121212;
+      color: white;
+      font-family: sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #controls {
+      background: #1f1f1f;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    button {
+      background: #333;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    textarea {
+      background: black;
+      color: #00ff00;
+      width: 100%;
+      height: 30vh;
+      border: none;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 16px;
+      resize: none;
+    }
+
+    #outputWrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      background: white;
+      border: none;
+    }
+
+    #exitBtn {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 20px;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    .fullscreen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999;
+    }
+
+    .hide {
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="runCode()">▶️</button>
+    <button onclick="clearCode()">❌</button>
+    <button onclick="fakeFullscreen()">🔳</button>
+  </div>
+
+  <textarea id="htmlCode">
+<h1>مرحباً يا غسان!</h1>
+<p>شاشة كاملة شغالة الآن.</p>
+  </textarea>
+
+  <div id="outputWrapper">
+    <div id="exitBtn" onclick="exitFakeFullscreen()">@</div>
+    <iframe id="output"></iframe>
+  </div>
+
+  <script>
+    function runCode() {
+      const code = document.getElementById("htmlCode").value;
+      document.getElementById("output").srcdoc = code;
+    }
+
+    function clearCode() {
+      document.getElementById("htmlCode").value = "";
+    }
+
+    function fakeFullscreen() {
+      document.getElementById("outputWrapper").classList.add("fullscreen");
+      document.getElementById("exitBtn").style.display = "block";
+      document.getElementById("controls").classList.add("hide");
+      document.getElementById("htmlCode").classList.add("hide");
+    }
+
+    function exitFakeFullscreen() {
+      document.getElementById("outputWrapper").classList.remove("fullscreen");
+      document.getElementById("exitBtn").style.display = "none";
+      document.getElementById("controls").classList.remove("hide");
+      document.getElementById("htmlCode").classList.remove("hide");
+    }
+  </script>
+
+</body>
+</html>
